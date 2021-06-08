@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:changilni_user/NetworkHandler.dart';
+import 'package:changilni_user/pages/HomePage.dart';
 import "package:flutter/material.dart";
 import 'package:image_picker/image_picker.dart';
 
@@ -13,6 +14,7 @@ class CreateProfile extends StatefulWidget {
 
 class _CreateProfileState extends State<CreateProfile> {
   final networkHandler = NetworkHandler();
+  bool circular = false;
   final _formKey = GlobalKey<FormState>();
   PickedFile _imageFile;
   final ImagePicker _picker = ImagePicker();
@@ -23,59 +25,84 @@ class _CreateProfileState extends State<CreateProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+     backgroundColor: Color(0xffE4E4E4),
         body: Form(
-          key: _formKey,
-          child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            children: <Widget>[
-              imageProfile(),
-              SizedBox(height: 20),
-              usernameTextField(),
-              SizedBox(height: 20),
-              cinTextField(),
-              SizedBox(height: 20),
-              telTextField(),
-              SizedBox(height: 20),
-              adressTextField(),
-              SizedBox(height: 20),
-              InkWell(
-                onTap: () async {
-                  if(_formKey.currentState.validate())
-                  {
-                     Map<String, String> data = {
-                       "username":_username.text,
-                       "tel":_tel.text,
-                       "adress":_adress.text,
-                       "cin":_cin.text,
-                     };
-                      var response =
-                        await networkHandler.post("/profile/add", data);
-                    print(response.statusCode);
+      key: _formKey,
+      child: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        children: <Widget>[
+          imageProfile(),
+          SizedBox(height: 20),
+          usernameTextField(),
+          SizedBox(height: 20),
+          cinTextField(),
+          SizedBox(height: 20),
+          telTextField(),
+          SizedBox(height: 20),
+          adressTextField(),
+          SizedBox(height: 20),
+          InkWell(
+            onTap: () async {
+              setState(() {
+                circular = true;
+              });
+              if (_formKey.currentState.validate()) {
+                Map<String, String> data = {
+                  "username": _username.text,
+                  "tel": _tel.text,
+                  "adress": _adress.text,
+                  "cin": _cin.text,
+                };
+                var response = await networkHandler.post("/profile/add", data);
+                if (response.statusCode == 200 || response.statusCode == 201) {
+                 if (_imageFile.path != null) {
+                      var imageResponse = await networkHandler.patchImage(
+                          "/profile/add/image", _imageFile.path);
+                      if (imageResponse.statusCode == 200) {
+                        setState(() {
+                          circular = false;
+                        });
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                        (route) => false);
                   }
-                },
-                              child: Center(
-                  child: Container(
-                      width: 200,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF27313B),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child:Center(
-                        child: Text(
-                          "Soumettre",  style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                            ),
-                        ),
-                      ),
-                      ),
+                  } else {
+                    setState(() {
+                      circular = false;
+                    });
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                        (route) => false);
+                  }
+                }
+              }
+            },
+            child: Center(
+              child: Container(
+                width: 200,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Color(0xFF27313B),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              )
-            ],
-          ),
-        ));
+                child: Center(
+                  child: circular
+                      ? CircularProgressIndicator()
+                      : Text(
+                          "Soumettre",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    ));
   }
 
   Widget imageProfile() {

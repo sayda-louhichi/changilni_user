@@ -1,5 +1,6 @@
 import 'package:changilni_user/NetworkHandler.dart';
 import 'package:changilni_user/profile/CreateProfile.dart';
+import 'package:changilni_user/profile/MainProfile.dart';
 import "package:flutter/material.dart";
 
 class ProfileScreen extends StatefulWidget {
@@ -20,7 +21,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     var response = await networkHandler.get("/profile/checkProfile");
     if (response["status"] == true) {
       setState(() {
-        page = showProfile();
+        page = MainProfile();
       });
     } else {
       setState(() {
