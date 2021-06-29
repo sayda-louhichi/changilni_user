@@ -1,5 +1,7 @@
 import 'package:changilni_user/Model/ProfileModel.dart';
 import 'package:changilni_user/NetworkHandler.dart';
+import 'package:changilni_user/pages/HomePage.dart';
+import 'package:changilni_user/profile/UpdateProfile.dart';
 import "package:flutter/material.dart";
 
 class MainProfile extends StatefulWidget {
@@ -40,11 +42,11 @@ class _MainProfileState extends State<MainProfile> {
           color: Color(0xFF27313B),
         ),*/
         actions: <Widget>[
-          IconButton(
+          /*IconButton(
             icon: Icon(Icons.edit),
             onPressed: () {},
             color: Color(0xFF27313B),
-          ),
+          ),*/
         ],
       ),
       body: circular
@@ -60,6 +62,9 @@ class _MainProfileState extends State<MainProfile> {
               otherDetails("Téléphone", profileModel.tel),
               Divider(
                 thickness: 0.8,
+              ),
+              SizedBox(height: 50),
+              button(
               ),
             ]),
     );
@@ -93,7 +98,8 @@ class _MainProfileState extends State<MainProfile> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text("$label :",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)
+                ),
             SizedBox(height: 10),
             Text(
               value,
@@ -101,5 +107,41 @@ class _MainProfileState extends State<MainProfile> {
             )
           ]),
     );
+  }
+
+  Widget button() {
+    return  Center(
+      child: Container(
+                  width: 200,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF27313B),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  
+                  child: Center(
+                     child: FlatButton(
+                 onPressed: () {
+
+                Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(builder: (context) => UpdateProfile(this.profileModel)),
+                            (route) => false);
+                      
+            },
+                    child: circular
+                        ? CircularProgressIndicator()
+                        : Text(
+                            "Modifier",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          
+                  ),
+                
+      ),
+    ));
   }
 }

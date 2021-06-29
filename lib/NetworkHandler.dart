@@ -1,11 +1,12 @@
 import 'dart:convert';
+import 'package:changilni_user/Model/InfoModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
 class NetworkHandler {
-  String baseurl = "http://172.16.23.33:3000";
+  String baseurl = "http://192.168.1.3:3000";
   var log = Logger();
   FlutterSecureStorage storage = FlutterSecureStorage();
   Future get(String url) async {
@@ -55,6 +56,7 @@ class NetworkHandler {
     return response;
   }
 
+
   Future<http.Response> post1(String url, var body) async {
     String token = await storage.read(key: "token");
     url = formater(url);
@@ -69,7 +71,7 @@ class NetworkHandler {
     );
     return response;
   }
-
+ 
   Future<http.StreamedResponse> patchImage(String url, String filepath) async {
     url = formater(url);
     String token = await storage.read(key: "token");
@@ -91,6 +93,29 @@ class NetworkHandler {
     String url = formater("/uploads//$imageName.jpg");
     return NetworkImage(url);
   }
-
+ deleteImma(InfoModel infomodel ) async {
+       String token = await storage.read(key: "token");
+    await http.delete(
+      "$baseurl/delete/${infomodel.id}",
+       headers: {
+        "Content-type": "application/json",
+        "Authorization": "Bearer $token"
+      },
+    );
+  } 
+ Future<http.Response> delete(String url, var body) async {
+    String token = await storage.read(key: "token");
+    url = formater(url);
+    log.d(body);
+    var response = await http.delete(
+      url,
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": "Bearer $token"
+      },
+    );
+    return response;
+  }
   
+
 }

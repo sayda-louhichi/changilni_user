@@ -15,7 +15,7 @@ class ProfileModel {
       this.email,
       this.cin,
       this.tel,
-      this.adress});
+      this.adress,});
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) =>
       _$ProfileModelFromJson(json);

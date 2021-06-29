@@ -1,3 +1,4 @@
+import 'package:changilni_user/Immatriculation/AddInfo.dart';
 import 'package:changilni_user/Screens/HomeScreen.dart';
 import 'package:changilni_user/pages/WelcomePage.dart';
 import 'package:changilni_user/profile/ProfileScreen.dart';
@@ -39,9 +40,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          ListTile(
-            title: Text("bonjour"),
-          ),
+          
           ListTile(
               title: Text("Logout"),
               trailing: Icon(Icons.power_settings_new),
@@ -65,7 +64,11 @@ class _HomePageState extends State<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xffE78200),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => AddImmatriculation(),
+                        ));
+        },
         child: Text(
           '+',
           style: TextStyle(fontSize: 35,

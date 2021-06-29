@@ -49,9 +49,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text("tap to add profile",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.deepOrange, fontSize: 18)),
             SizedBox(
               height: 30,
             ),
@@ -60,15 +57,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => CreateProfile()));
               },
-              child: Container(
-                height: 60,
-                width: 200,
-                decoration: BoxDecoration(
-                    color: Colors.blueGrey,
-                    borderRadius: BorderRadius.circular(20)),
-                child: Center(
-                    child: Text("add profile",
-                        style: TextStyle(color: Colors.white, fontSize: 18))),
+              child: Center(
+                child: Container(
+                  height: 60,
+                  width: 200,
+                  decoration: BoxDecoration(
+                      color: Color(0xFF27313B),
+                      borderRadius: BorderRadius.circular(200)
+                    ),
+                  child: Center(
+                      child: Text("Ajouter Profil",
+                          style: TextStyle(color: Colors.white, fontSize: 25))),
+                ),
               ),
             )
           ]),
