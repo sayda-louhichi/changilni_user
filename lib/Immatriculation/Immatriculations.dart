@@ -47,7 +47,9 @@ class _ImmatriculationsState extends State<Immatriculations> {
                                 MaterialPageRoute(
                                     builder: (contex) => Immatriculation(
                                           infomodel: item,
-                                        )));
+                                        )
+                                        )
+                                        );
                           },
                           child: ImmatriculationCard(
                             infomodel: item,

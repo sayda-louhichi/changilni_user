@@ -2,6 +2,7 @@
 import 'package:changilni_user/Immatriculation/UpdateInfo.dart';
 import 'package:changilni_user/Model/InfoModel.dart';
 import 'package:changilni_user/NetworkHandler.dart';
+import 'package:changilni_user/pages/HomePage.dart';
 import 'package:flutter/material.dart';
 
 class ImmatriculationCard extends StatelessWidget {
@@ -34,8 +35,13 @@ class ImmatriculationCard extends StatelessWidget {
                  InfoModel infoModel;
         networkHandler.delete(
               "/immatricule/delete/${infomodel.id}", infoModel);
-                Navigator.popUntil(context, ModalRoute.withName(Navigator.defaultRouteName));
+                 Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomePage()),
+                          (route) => false);
               },
+              
             ),
             FlatButton(
               child: const Text('No'),
