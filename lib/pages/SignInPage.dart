@@ -1,12 +1,11 @@
 import 'package:changilni_user/pages/ForgotPassword.dart';
 import 'package:changilni_user/pages/HomePage.dart';
 import 'package:changilni_user/pages/SignUpPage.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
 import '../NetworkHandler.dart';
 
 class SignInPage extends StatefulWidget {
@@ -17,7 +16,6 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   bool vis = true;
-
   final _formKey = GlobalKey<FormState>();
   NetworkHandler networkHandler = NetworkHandler();
   TextEditingController _emailController = TextEditingController();
@@ -28,7 +26,40 @@ class _SignInPageState extends State<SignInPage> {
   final storage = new FlutterSecureStorage();
   bool _isLogin = false;
   Map data;
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+ var myToken;
   //final facebookLogin = FacebookLogin();
+@override
+  void initState() {
+    super.initState();
+      _firebaseMessaging.getToken().then((String token) {
+      assert(token != null);
+      setState(() {
+        myToken = token ;
+      });
+      print(myToken);
+    });
+    
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+       // _showItemDialog(message);
+      },
+      //onBackgroundMessage: myBackgroundMessageHandler,
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+        //_navigateToItemDetail(message);
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+        //_navigateToItemDetail(message);
+      },
+    );
+  
+  
+  
+    
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,6 +146,7 @@ class _SignInPageState extends State<SignInPage> {
                     Map<String, String> data = {
                       "email": _emailController.text,
                       "password": _passwordController.text,
+                      
                     };
                     var response =
                         await networkHandler.post("/user/login", data);
@@ -123,6 +155,7 @@ class _SignInPageState extends State<SignInPage> {
                         response.statusCode == 201) {
                       Map<String, dynamic> output = json.decode(response.body);
                       print(output["token"]);
+                      print(myToken);
                       await storage.write(key: "token", value: output["token"]);
                       setState(() {
                         validate = true;
@@ -217,33 +250,6 @@ class _SignInPageState extends State<SignInPage> {
       ),
     );
   }
-
-  /*onFBLogin() async {
-    final result = await facebookLogin.logIn(['email']);
-    switch (result.status) {
-      case FacebookLoginStatus.loggedIn:
-        final token = result.accessToken;
-        final response = await http.get(
-            "https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=$token");
-        final data1 = json.decode(response.body);
-        print(data);
-        setState(() {
-          _isLogin = true;
-          data = data1;
-        });
-        break;
-      case FacebookLoginStatus.cancelledByUser:
-        setState(() {
-          _isLogin = false;
-        });
-        break;
-      case FacebookLoginStatus.error:
-        setState(() {
-          _isLogin = false;
-        });
-        break;
-    }
-  }*/
 Widget emailTextField({controller, hint, icon}) {
     return Container(
     
@@ -299,55 +305,5 @@ Widget emailTextField({controller, hint, icon}) {
     );
   }
   
-/*
-   Widget emailTextField() {
-    return Column(
-      children: [
-        Text("Email"),
-        TextFormField(
-          controller: _emailController,
-          decoration: InputDecoration(
-            errorText: validate ? null : errorText,
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.black,
-                width: 2,
-              ),
-            ),
-          ),
-        )
-      ],
-    );
-  }
-  Widget passwordTextField() {
-    return Column(
-      children: [
-        Text("Password"),
-        TextFormField(
-          controller: _passwordController,
-          obscureText: vis,
-          decoration: InputDecoration(
-            errorText: validate ? null : errorText,
-            suffixIcon: IconButton(
-              icon: Icon(vis ? Icons.visibility_off : Icons.visibility),
-              onPressed: () {
-                setState(() {
-                  vis = !vis;
-                });
-              },
-            ),
-            helperStyle: TextStyle(
-              fontSize: 14,
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.black,
-                width: 2,
-              ),
-            ),
-          ),
-        )
-      ],
-    );
-  }*/
+
 }

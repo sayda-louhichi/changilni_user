@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "759505415149",
+    "project_id": "changilninotification",
+    "storage_bucket": "changilninotification.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:759505415149:android:8414fcb09aa4a97f13d5e4",
+        "android_client_info": {
+          "package_name": "com.example.changilni_user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "759505415149-7qgh38dpburd9mni07apbrei1jjqfd7o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAr9o63bOaRagvTf_9yGmx04DB1Ll_KHCE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "759505415149-7qgh38dpburd9mni07apbrei1jjqfd7o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

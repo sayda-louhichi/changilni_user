@@ -1,4 +1,5 @@
 import 'package:changilni_user/pages/SignInPage.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -10,6 +11,8 @@ class WelcomePage extends StatefulWidget {
 //bleu #27313B
 //gris champs #DDDDDD
 class _WelcomePageState extends State<WelcomePage> {
+    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(

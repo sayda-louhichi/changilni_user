@@ -2,6 +2,7 @@ import 'package:changilni_user/Immatriculation/AddInfo.dart';
 import 'package:changilni_user/Screens/HomeScreen.dart';
 import 'package:changilni_user/pages/WelcomePage.dart';
 import 'package:changilni_user/profile/ProfileScreen.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -12,11 +13,33 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+
 class _HomePageState extends State<HomePage> {
   int currentState = 0 ;
   List<Widget> widgets = [ HomeScreen(), ProfileScreen()];
     final storage = FlutterSecureStorage();
     List<String> titleString = ["Home Page", "Profile Page"];
+     final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+    @override
+  void initState() {
+    super.initState();
+     
+    
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+       // _showItemDialog(message);
+      },
+      //onBackgroundMessage: myBackgroundMessageHandler,
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+        //_navigateToItemDetail(message);
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+        //_navigateToItemDetail(message);
+      },
+    );}
     @override
   Widget build(BuildContext context) {
     return Scaffold(
