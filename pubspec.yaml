@@ -36,6 +36,7 @@ dependencies:
   extended_masked_text: ^2.2.1
   font_awesome_flutter: ^9.1.0
   firebase_messaging: ^7.0.3
+  lottie: ^0.6.0
 
 
 
@@ -62,6 +63,8 @@ flutter:
      - google.png
      - facebook.png
      - sayda.jpg
+     - assets/lottie/user.json
+     - assets/lottie/user1.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -87,11 +87,14 @@ class _SignInPageState extends State<SignInPage> {
               children: [
                 Image(
                   image: AssetImage('assets/logo.png'),
-                  width: 400,
-                  height: 400,
+                  width: 500,
+                  height: 300,
                   alignment: Alignment.center,
                 ),
                 emailTextField(hint:"Email",icon:Icons.email),
+                SizedBox(
+                  height: 10,
+                ),
                  passwordTextField(hint:"Mot de passe",icon:Icons.vpn_key),
               
                 SizedBox(
@@ -108,7 +111,7 @@ class _SignInPageState extends State<SignInPage> {
                                 builder: (context) => ForgotPasswordPage()));
                       },
                       child: Text(
-                        "Forgot Password ?",
+                        "Nouveau Mot de Passe ?",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 17,
@@ -117,7 +120,7 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                     ),
                     SizedBox(
-                      width: 10,
+                      width: 50,
     
                     ),
                     InkWell(
@@ -134,9 +137,15 @@ class _SignInPageState extends State<SignInPage> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      
                     ),
+                    
                   ],
                 ),
+                 SizedBox(
+                      height: 40,
+    
+                    ),
                 InkWell(
                   onTap: () async {
                     setState(() {
@@ -178,14 +187,17 @@ class _SignInPageState extends State<SignInPage> {
 
                     // login logic End here
                   },
+                  
                     child: Center(
                     child: circular
                         ? CircularProgressIndicator()
                         : Padding(
                             padding: const EdgeInsets.all(8.0),
+
                             child: Container(
                               width: 150,
                               height: 50,
+                              
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: Color(0xffE78200)),
@@ -201,16 +213,7 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                   ),
                 ),
-                boxContainer(
-                  "assets/facebook.png",
-                  "Sign up with Facebook",
-                  null,
-                ),
-                boxContainer(
-                  "assets/google.png",
-                  "Sign up with Google",
-                  null,
-                ),
+                
               ],
             )
           ],
@@ -299,6 +302,7 @@ Widget emailTextField({controller, hint, icon}) {
               ),
               hintText: hint,
           prefixIcon: Icon(icon),
+            border: InputBorder.none,
             ),
           )
         

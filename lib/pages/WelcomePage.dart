@@ -1,4 +1,5 @@
-import 'package:changilni_user/pages/SignInPage.dart';
+
+import 'package:changilni_user/pages/SplachScreen1.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
@@ -20,11 +21,15 @@ class _WelcomePageState extends State<WelcomePage> {
       body: Column(
            crossAxisAlignment:CrossAxisAlignment.center,
           children: <Widget>[
-            Image(
+           Image(
               image: AssetImage('assets/logo.png'),
               width: 600,
               height: 600,
             ),
+            /*Lottie.asset('assets/lottie/user.json',
+            width: 200,
+            height: 200,
+            fit: BoxFit.fill,),*/
             Container(
               width: 150,
               height: 50,
@@ -36,7 +41,7 @@ class _WelcomePageState extends State<WelcomePage> {
               child: FlatButton(
                 onPressed: () {
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (BuildContext context) => SignInPage()));
+                      builder: (BuildContext context) => SplashScreen()));
                 },
                 child: Text(
                   "Bienvenue",

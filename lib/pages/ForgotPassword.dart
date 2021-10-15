@@ -159,6 +159,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               ),
               hintText: hint,
           prefixIcon: Icon(icon),
+           border: InputBorder.none,
             ),
           )
         

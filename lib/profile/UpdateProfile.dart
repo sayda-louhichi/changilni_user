@@ -89,10 +89,10 @@ _cin = new TextEditingController(text: widget.profilemodel.cin);
                 },
             child: Center(
               child: Container(
-                width: 200,
+               width: 150,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: Color(0xFF27313B),
+                  color: Color(0xffE78200),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Center(

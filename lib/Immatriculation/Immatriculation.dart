@@ -12,7 +12,7 @@ class Immatriculation extends StatelessWidget {
   final InfoModel infomodel;
   @override
   Widget build(BuildContext context) {
-     Future<void> _confirmDialog() async {
+     /*Future<void> _confirmDialog() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, 
@@ -50,7 +50,7 @@ class Immatriculation extends StatelessWidget {
         );
       },
     );
-  }
+  }*/
     return Scaffold(
       body: ListView(
         children: [
@@ -87,7 +87,7 @@ class Immatriculation extends StatelessWidget {
                  padding:EdgeInsets.only(bottom:50)
                 
             ),
-                  IconButton(
+                 /* IconButton(
               icon: Icon(Icons.delete),
              
                
@@ -95,19 +95,16 @@ class Immatriculation extends StatelessWidget {
                _confirmDialog();
                
               },
-            
-              
-            
               color: Color(0xFF27313B),
                 iconSize: 30,
                  padding:EdgeInsets.only(bottom:50)
                 
-            ),
+            ),*/
                 ],
               ),
             ),
           ),
-          SizedBox(
+         SizedBox(
             height: 10,
           )
         ],

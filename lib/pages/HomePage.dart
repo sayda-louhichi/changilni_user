@@ -1,4 +1,5 @@
 import 'package:changilni_user/Immatriculation/AddInfo.dart';
+import 'package:changilni_user/NetworkHandler.dart';
 import 'package:changilni_user/Screens/HomeScreen.dart';
 import 'package:changilni_user/pages/WelcomePage.dart';
 import 'package:changilni_user/profile/ProfileScreen.dart';
@@ -18,8 +19,18 @@ class _HomePageState extends State<HomePage> {
   int currentState = 0 ;
   List<Widget> widgets = [ HomeScreen(), ProfileScreen()];
     final storage = FlutterSecureStorage();
-    List<String> titleString = ["Home Page", "Profile Page"];
+    List<String> titleString = ["Acceuil", "Profil"];
      final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+     String email ="";
+     Widget profilePhoto= Container(
+                  height: 100,
+                  width: 100,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                );
+
     @override
   void initState() {
     super.initState();
@@ -39,7 +50,34 @@ class _HomePageState extends State<HomePage> {
         print("onResume: $message");
         //_navigateToItemDetail(message);
       },
-    );}
+    );
+    checkProfile();
+    }
+    void checkProfile() async {
+    var response = await networkHandler.get("/profile/checkProfile");
+    setState(() {
+      email = response['email'];
+    });
+    if (response["status"] == true) {
+      setState(() {
+        profilePhoto = CircleAvatar(
+          radius: 50,
+          backgroundImage: NetworkHandler().getImage(response['email']),
+        );
+      });
+    } else {
+      setState(() {
+        profilePhoto = Container(
+          height: 100,
+          width: 100,
+          decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(50),
+          ),
+        );
+      });
+    }
+  }
     @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,22 +86,19 @@ class _HomePageState extends State<HomePage> {
           DrawerHeader(
             child: Column(
               children: <Widget>[
-                Container(
-                  height: 100,
-                  width: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                ),
+               profilePhoto,
                 SizedBox(
                   height: 10,
                 ),
-                Text("@username"),
+                Text("$email"),
               ],
             ),
           ),
-          
+           ListTile(
+              title: Text("Paramétres"),
+              trailing: Icon(Icons.settings),
+              onTap: () {},
+            ),
           ListTile(
               title: Text("Logout"),
               trailing: Icon(Icons.power_settings_new),
@@ -86,7 +121,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xffE78200),
+        backgroundColor:Color(0xffE78200),
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => AddImmatriculation(),

@@ -14,7 +14,7 @@ class ImmatriculationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final networkHandler = NetworkHandler();
-     Future<void> _confirmDialog() async {
+     /*Future<void> _confirmDialog() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -53,7 +53,7 @@ class ImmatriculationCard extends StatelessWidget {
         );
       },
     );
-  }
+  }*/
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
         child: Card(
@@ -98,13 +98,13 @@ class ImmatriculationCard extends StatelessWidget {
                 iconSize: 30,
                  padding:EdgeInsets.only(bottom:50)  
             ),
-              IconButton(
+             /* IconButton(
               icon: Icon(Icons.delete),
               onPressed: () {_confirmDialog();},
               color: Color(0xFF27313B),
                 iconSize: 30,
                  padding:EdgeInsets.only(bottom:50)
-            ),
+            ),*/
                           ]
                         ),
                       ),

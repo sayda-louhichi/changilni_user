@@ -234,6 +234,7 @@ class _SignUpPageState extends State<SignUpPage> {
             },
             obscureText: vis,
             decoration: InputDecoration(
+               border: InputBorder.none,
               suffixIcon: IconButton(
                 icon: Icon(vis ? Icons.visibility_off : Icons.visibility),
                 onPressed: () {
